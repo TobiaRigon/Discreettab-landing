@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://tobiarigon.github.io/discreettab/sitemap.xml
+Sitemap: https://tobiarigon.github.io/Discreettab-landing/sitemap.xml
