@@ -18,7 +18,7 @@
   <meta name="twitter:title" content="DiscreetTab Hide Tab Titles &amp; Icons" />
   <meta name="twitter:description" content="Hide tab titles and favicons for private browsing on shared screens or video calls." />
   <meta name="twitter:image" content="__PUBLIC_URL__/assets/og-image.svg" />
-  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.png" />
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"DiscreetTab","applicationCategory":"BrowserApplication","operatingSystem":"Chrome OS, Windows, macOS, Linux","browserRequirements":"Requires Google Chrome 116+","description":"DiscreetTab hides browser tab titles and favicons so you can stay discreet on screen shares or in public spaces.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"url":"https://chromewebstore.google.com/detail/discreettab/ndhpbpnlphipmfgedhgcjehhdpoakboj","image":"__PUBLIC_URL__/assets/og-image.svg","author":{"@type":"Person","name":"Tobia Rigon"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does DiscreetTab slow down Chrome?","acceptedAnswer":{"@type":"Answer","text":"No. DiscreetTab only runs when you activate it and listens for tab title or favicon changes without heavy polling."}},{"@type":"Question","name":"What data does DiscreetTab store?","acceptedAnswer":{"@type":"Answer","text":"The extension stores your discreet domain list and aliases inside Chrome Sync so they stay in your Google account and are never shared externally."}},{"@type":"Question","name":"Can I turn DiscreetTab off quickly?","acceptedAnswer":{"@type":"Answer","text":"Yes. Use Ctrl+Shift+S or click the toolbar icon to toggle the disguise on the current tab instantly."}}]}</script>
   <script>
     (function(){const r=document.documentElement;const t=window.matchMedia('(prefers-color-scheme: dark)').matches;const s=localStorage.getItem('dt-theme');const m=s==='dark'||s==='light'?s:(t?'dark':'light');if(m==='dark')r.classList.add('dark');r.dataset.theme=m||'light';})();
@@ -32,7 +32,7 @@
   <header class="w-full border-b border-slate-200 bg-white/80 backdrop-blur dark:border-slate-800 dark:bg-slate-900/80" role="banner">
     <div class="mx-auto flex max-w-5xl items-center justify-between gap-4 px-6 py-4">
       <div class="flex items-center gap-3">
-        <img src="assets/favicon.svg" alt="DiscreetTab logo" width="36" height="36" loading="lazy" class="h-9 w-9" />
+        <img src="assets/favicon.png" alt="DiscreetTab logo" width="36" height="36" loading="lazy" class="h-9 w-9" />
         <div>
           <p class="font-semibold text-lg tracking-tight">DiscreetTab</p>
           <p class="text-sm text-slate-500 dark:text-slate-400">Chrome privacy extension for hidden tabs.</p>
