@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DiscreetTab Hide Tab Titles &amp; Icons</title>
+  <meta name="description" content="DiscreetTab is a Chrome privacy extension that hides tab titles and favicons instantly for discreet browsing at work or in public." />
+  <!-- Replace __PUBLIC_URL__ with the live site URL before publishing -->
+  <link rel="canonical" href="__PUBLIC_URL__/" />
+  <link rel="alternate" hreflang="en" href="__PUBLIC_URL__/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="DiscreetTab Hide Tab Titles &amp; Icons" />
+  <meta property="og:description" content="Instantly mask browser tabs with neutral titles and icons using the DiscreetTab Chrome extension." />
+  <meta property="og:url" content="__PUBLIC_URL__/" />
+  <!-- Replace with a hosted social preview image -->
+  <meta property="og:image" content="__PUBLIC_URL__/assets/og-image.svg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="DiscreetTab Hide Tab Titles &amp; Icons" />
+  <meta name="twitter:description" content="Hide tab titles and favicons for private browsing on shared screens or video calls." />
+  <meta name="twitter:image" content="__PUBLIC_URL__/assets/og-image.svg" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"DiscreetTab","applicationCategory":"BrowserApplication","operatingSystem":"Chrome OS, Windows, macOS, Linux","browserRequirements":"Requires Google Chrome 116+","description":"DiscreetTab hides browser tab titles and favicons so you can stay discreet on screen shares or in public spaces.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"url":"https://chromewebstore.google.com/detail/discreettab/ndhpbpnlphipmfgedhgcjehhdpoakboj","image":"__PUBLIC_URL__/assets/og-image.svg","author":{"@type":"Person","name":"Tobia Rigon"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does DiscreetTab slow down Chrome?","acceptedAnswer":{"@type":"Answer","text":"No. DiscreetTab only runs when you activate it and listens for tab title or favicon changes without heavy polling."}},{"@type":"Question","name":"What data does DiscreetTab store?","acceptedAnswer":{"@type":"Answer","text":"The extension stores your discreet domain list and aliases inside Chrome Sync so they stay in your Google account and are never shared externally."}},{"@type":"Question","name":"Can I turn DiscreetTab off quickly?","acceptedAnswer":{"@type":"Answer","text":"Yes. Use Ctrl+Shift+S or click the toolbar icon to toggle the disguise on the current tab instantly."}}]}</script>
+  <script>
+    (function(){const r=document.documentElement;const t=window.matchMedia('(prefers-color-scheme: dark)').matches;const s=localStorage.getItem('dt-theme');const m=s==='dark'||s==='light'?s:(t?'dark':'light');if(m==='dark')r.classList.add('dark');r.dataset.theme=m||'light';})();
+  </script>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+  <script>tailwind.config={darkMode:"class",theme:{extend:{fontFamily:{display:['"Inter var"',"system-ui","sans-serif"]}}}};</script>
+  <style>:root{color-scheme:light dark} @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}</style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 font-sans antialiased">
+  <a href="#main" class="skip-to-content absolute left-3 top-3 z-50 -translate-y-24 rounded-md border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-700 shadow focus-visible:translate-y-0 focus-visible:outline-none dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100">Skip to content</a>
+  <header class="w-full border-b border-slate-200 bg-white/80 backdrop-blur dark:border-slate-800 dark:bg-slate-900/80" role="banner">
+    <div class="mx-auto flex max-w-5xl items-center justify-between gap-4 px-6 py-4">
+      <div class="flex items-center gap-3">
+        <img src="assets/favicon.svg" alt="DiscreetTab logo" width="36" height="36" loading="lazy" class="h-9 w-9" />
+        <div>
+          <p class="font-semibold text-lg tracking-tight">DiscreetTab</p>
+          <p class="text-sm text-slate-500 dark:text-slate-400">Chrome privacy extension for hidden tabs.</p>
+        </div>
+      </div>
+      <nav aria-label="Primary" class="flex items-center gap-4 text-sm font-medium text-slate-600 dark:text-slate-300">
+        <a href="#features" class="hover:text-blue-600 dark:hover:text-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500">Features</a>
+        <a href="#faq" class="hover:text-blue-600 dark:hover:text-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500">FAQ</a>
+        <a href="#changelog" class="hover:text-blue-600 dark:hover:text-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500">Changelog</a>
+        <a href="#privacy" class="hover:text-blue-600 dark:hover:text-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500">Privacy</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <button id="themeToggle" type="button" class="rounded-md border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 dark:border-slate-700 dark:text-slate-100 dark:hover:bg-slate-800" aria-live="polite">Toggle theme</button>
+        <a href="https://chromewebstore.google.com/detail/discreettab/ndhpbpnlphipmfgedhgcjehhdpoakboj" class="inline-flex items-center justify-center rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 dark:bg-blue-500 dark:hover:bg-blue-400" target="_blank" rel="noopener noreferrer">Add to Chrome</a>
+      </div>
+    </div>
+  </header>
+  <main id="main" class="mx-auto w-full max-w-5xl px-6 py-12 space-y-20" role="main">
+    <section aria-labelledby="hero-title" class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,360px)] lg:items-center">
+      <div class="space-y-5">
+        <h1 id="hero-title" class="font-display text-4xl font-bold leading-tight text-slate-900 dark:text-white sm:text-5xl">
+          DiscreetTab Chrome privacy extension that hides your tabs.
+        </h1>
+        <p class="text-lg text-slate-600 dark:text-slate-300">
+          One click replaces sensitive tab titles and favicons with neutral placeholders, keeping shared screens and open offices private.
+        </p>
+        <ul class="grid gap-3 text-base text-slate-700 dark:text-slate-200" role="list">
+          <li class="flex items-start gap-3">
+            <span aria-hidden="true" class="mt-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-blue-600 text-xs font-bold text-white">1</span>
+            <span>Toggle discreet mode instantly via Ctrl+Shift+S or the toolbar button.</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span aria-hidden="true" class="mt-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-blue-600 text-xs font-bold text-white">2</span>
+            <span>Keep a synced list of work, finance, or research domains that always stay hidden.</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span aria-hidden="true" class="mt-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-blue-600 text-xs font-bold text-white">3</span>
+            <span>Customise aliases and favicons so masked tabs stay meaningful only to you.</span>
+          </li>
+        </ul>
+        <div class="flex flex-wrap items-center gap-3">
+          <a href="https://chromewebstore.google.com/detail/discreettab/ndhpbpnlphipmfgedhgcjehhdpoakboj" class="inline-flex items-center justify-center rounded-md bg-blue-600 px-4 py-2 text-base font-semibold text-white shadow-sm transition-colors hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 dark:bg-blue-500 dark:hover:bg-blue-400" target="_blank" rel="noopener noreferrer">Add to Chrome</a>
+          <button id="demoToggle" type="button" class="inline-flex items-center justify-center rounded-md border border-slate-300 px-4 py-2 text-base font-semibold text-slate-700 transition hover:bg-slate-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 dark:border-slate-700 dark:text-slate-100 dark:hover:bg-slate-800">Play mask animation</button>
+        </div>
+        <p class="text-sm text-slate-500 dark:text-slate-400">Lightweight, no trackers, and built for quick, discreet browsing.</p>
+      </div>
+      <div class="grid gap-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+        <div class="flex items-center justify-between text-xs font-semibold text-slate-500 dark:text-slate-400">
+          <span>Demo tab preview</span>
+          <span id="demoStatus" class="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2 py-1 font-medium text-slate-600 dark:bg-slate-800 dark:text-slate-300">Discreet mode off</span>
+        </div>
+        <div class="relative overflow-hidden rounded-lg border border-slate-200 dark:border-slate-800">
+          <img src="assets/demo-light.svg" alt="Browser tab before DiscreetTab masking with visible title and icon" width="640" height="360" loading="lazy" />
+          <img src="assets/demo-dark.svg" alt="Browser tab after DiscreetTab masking showing neutral placeholder title" width="640" height="360" loading="lazy" id="demoOverlay" class="absolute inset-0 w-full opacity-0 transition-opacity duration-700 ease-in-out" />
+        </div>
+        <p class="text-sm text-slate-500 dark:text-slate-400">Tap the animation button to watch the tab title fade into a neutral label.</p>
+      </div>
+    </section>
+
+    <section id="features" aria-labelledby="features-title" class="space-y-6">
+      <h2 id="features-title" class="text-3xl font-bold text-slate-900 dark:text-white">Key features for discreet browsing</h2>
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <article class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+          <h3 class="text-xl font-semibold text-slate-900 dark:text-white">Unified Chrome Sync storage</h3>
+          <p class="mt-2 text-slate-600 dark:text-slate-300">All settings live inside Chrome Sync so your private list and aliases stay consistent on every device you sign into.</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+          <h3 class="text-xl font-semibold text-slate-900 dark:text-white">Instant MutationObserver updates</h3>
+          <p class="mt-2 text-slate-600 dark:text-slate-300">DiscreetTab reacts the moment titles change, keeping screen shares clean without polling loops or performance hits.</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+          <h3 class="text-xl font-semibold text-slate-900 dark:text-white">Keyboard-first control</h3>
+          <p class="mt-2 text-slate-600 dark:text-slate-300">Use the shortcut or toolbar icon to flip between normal and discreet states before someone glances at your screen.</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+          <h3 class="text-xl font-semibold text-slate-900 dark:text-white">Custom aliases</h3>
+          <p class="mt-2 text-slate-600 dark:text-slate-300">Give each domain a friendly label like “Finance” or “Support” so you know what is open even when the title is hidden.</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+          <h3 class="text-xl font-semibold text-slate-900 dark:text-white">Reduced-motion friendly</h3>
+          <p class="mt-2 text-slate-600 dark:text-slate-300">Animations respect system preferences, keeping the disguise comfortable for every user.</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+          <h3 class="text-xl font-semibold text-slate-900 dark:text-white">No analytics or ads</h3>
+          <p class="mt-2 text-slate-600 dark:text-slate-300">DiscreetTab is a hobby project with zero telemetry and no advertising code—your browsing stays on your device.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="faq" aria-labelledby="faq-title" class="space-y-6">
+      <h2 id="faq-title" class="text-3xl font-bold text-slate-900 dark:text-white">Frequently asked questions</h2>
+      <dl class="space-y-4">
+        <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+          <dt class="text-lg font-semibold text-slate-900 dark:text-white">Does DiscreetTab slow down Chrome?</dt>
+          <dd class="mt-2 text-slate-600 dark:text-slate-300">No. It injects a lightweight observer only when you toggle discreet mode, keeping performance identical to normal browsing.</dd>
+        </div>
+        <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+          <dt class="text-lg font-semibold text-slate-900 dark:text-white">What information gets stored?</dt>
+          <dd class="mt-2 text-slate-600 dark:text-slate-300">Only your discreet domain list, aliases, and whether the extension is enabled. Everything stays inside Chrome Sync.</dd>
+        </div>
+        <div class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+          <dt class="text-lg font-semibold text-slate-900 dark:text-white">Can I undo the disguise quickly?</dt>
+          <dd class="mt-2 text-slate-600 dark:text-slate-300">Yes. Hit Ctrl+Shift+S again or click the icon to restore the original tab title and favicon immediately.</dd>
+        </div>
+      </dl>
+    </section>
+
+    <section id="changelog" aria-labelledby="changelog-title" class="space-y-4">
+      <h2 id="changelog-title" class="text-3xl font-bold text-slate-900 dark:text-white">Changelog highlights</h2>
+      <ul class="space-y-3 text-slate-600 dark:text-slate-300">
+        <li><strong>v1.3</strong> — Unified Chrome Sync storage, MutationObserver updates, per-domain aliases.</li>
+        <li><strong>v1.2</strong> — Added keyboard shortcut toggle and quick demo preview.</li>
+        <li><strong>v1.1</strong> — Introduced discreet domain list for automatic masking.</li>
+      </ul>
+    </section>
+
+    <section id="privacy" aria-labelledby="privacy-title" class="space-y-4">
+      <h2 id="privacy-title" class="text-3xl font-bold text-slate-900 dark:text-white">Privacy at a glance</h2>
+      <p class="text-slate-600 dark:text-slate-300">DiscreetTab stores settings only in Chrome Sync, ships without analytics, and never shares personal data. The project is maintained as a personal hobby—support is optional via Buy Me a Coffee.</p>
+      <p class="text-slate-600 dark:text-slate-300">Read the full <a href="privacy.html" class="text-blue-600 underline decoration-dotted underline-offset-4 dark:text-blue-400">privacy policy</a> and <a href="terms.html" class="text-blue-600 underline decoration-dotted underline-offset-4 dark:text-blue-400">terms</a> for details.</p>
+    </section>
+  </main>
+  <footer class="border-t border-slate-200 bg-white py-12 dark:border-slate-800 dark:bg-slate-900" role="contentinfo">
+    <div class="mx-auto flex max-w-5xl flex-col gap-6 px-6 text-sm text-slate-500 dark:text-slate-400">
+      <div class="flex flex-wrap items-center justify-between gap-4">
+        <p>Made by Tobia Rigon, built for fun.</p>
+        <div class="flex items-center gap-3">
+          <a href="https://github.com/tobiarigon/discreettab" class="font-medium text-blue-600 underline decoration-dotted underline-offset-4 dark:text-blue-400" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="https://coff.ee/tobiarigon" class="font-medium text-blue-600 underline decoration-dotted underline-offset-4 dark:text-blue-400" target="_blank" rel="noopener noreferrer">Like the extension?</a>
+        </div>
+      </div>
+      <div class="flex flex-wrap items-center gap-3 text-xs text-slate-400 dark:text-slate-500">
+        <span>© <span id="year"></span> DiscreetTab.</span>
+        <a href="#privacy" class="hover:text-slate-600 dark:hover:text-slate-300">Privacy summary</a>
+        <a href="privacy.html" class="hover:text-slate-600 dark:hover:text-slate-300">Privacy policy</a>
+        <a href="terms.html" class="hover:text-slate-600 dark:hover:text-slate-300">Terms</a>
+      </div>
+    </div>
+  </footer>
+  <script>const root=document.documentElement,prefersReducedMotion=window.matchMedia?.('(prefers-reduced-motion: reduce)').matches??false;function getStored(e){try{return localStorage.getItem(e)}catch{return null}}function setStored(e,t){try{localStorage.setItem(e,t)}catch{}}function updateThemeButtonLabel(){const e=document.getElementById('themeToggle');if(!e)return;const t=root.dataset.theme==='dark'?'dark':'light';e.textContent=t==='dark'?'Use light mode':'Use dark mode';e.setAttribute('aria-pressed',t==='dark'?'true':'false')}function toggleTheme(){const e=root.dataset.theme==='dark'?'dark':'light',t=e==='dark'?'light':'dark';root.dataset.theme=t;root.classList.toggle('dark',t==='dark');setStored('dt-theme',t);updateThemeButtonLabel()}const demoOverlay=document.getElementById('demoOverlay');const demoStatus=document.getElementById('demoStatus');const demoToggle=document.getElementById('demoToggle');let demoActive=false;let demoTimeout=null;function setDemoState(e){demoActive=e;if(demoOverlay)demoOverlay.style.opacity=e?'1':'0';if(demoStatus){demoStatus.textContent=e?'Discreet mode on':'Discreet mode off';demoStatus.classList.toggle('bg-blue-100',e);demoStatus.classList.toggle('text-blue-700',e);demoStatus.classList.toggle('dark:bg-blue-500/20',e);demoStatus.classList.toggle('dark:text-blue-200',e);demoStatus.classList.toggle('bg-slate-100',!e);demoStatus.classList.toggle('text-slate-600',!e);demoStatus.classList.toggle('dark:bg-slate-800',!e);demoStatus.classList.toggle('dark:text-slate-300',!e)}if(demoToggle){demoToggle.textContent=e?'Reset demo':'Play mask animation'}}function animateDemo(){if(demoTimeout){clearTimeout(demoTimeout);demoTimeout=null}const e=!demoActive;setDemoState(e);if(e&&!prefersReducedMotion){demoTimeout=setTimeout(()=>setDemoState(false),2600)}}function initDemo(){if(demoToggle)demoToggle.addEventListener('click',animateDemo)}function initTheme(){const e=document.getElementById('themeToggle');if(e){e.addEventListener('click',toggleTheme);updateThemeButtonLabel()}}function initYear(){const e=document.getElementById('year');if(e)e.textContent=new Date().getFullYear()}function restoreTheme(){const e=getStored('dt-theme');if(e==='dark'||e==='light'){root.dataset.theme=e;root.classList.toggle('dark',e==='dark')}}document.addEventListener('DOMContentLoaded',()=>{restoreTheme();initTheme();initDemo();initYear();setDemoState(false)});</script>
+</body>
+</html>
