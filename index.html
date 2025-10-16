@@ -25,7 +25,33 @@
   </script>
   <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
   <script>tailwind.config={darkMode:"class",theme:{extend:{fontFamily:{display:['"Inter var"',"system-ui","sans-serif"]}}}};</script>
-  <style>:root{color-scheme:light dark} @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}</style>
+  <style>
+    :root{color-scheme:light dark}
+    .demo-zoom-bubble{
+      position:absolute;
+      top:0;
+      left:0;
+      width:160px;
+      height:160px;
+      border-radius:9999px;
+      border:3px solid rgba(59,130,246,0.4);
+      box-shadow:0 12px 30px rgba(15,23,42,0.28);
+      pointer-events:none;
+      transform:translate(-50%,-50%);
+      background-repeat:no-repeat;
+      background-position:center;
+      opacity:0;
+      visibility:hidden;
+      transition:opacity .15s ease;
+    }
+    .demo-zoom-bubble[data-visible="true"]{
+      opacity:1;
+      visibility:visible;
+    }
+    @media (prefers-reduced-motion:reduce){
+      *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+    }
+  </style>
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 font-sans antialiased">
   <a href="#main" class="skip-to-content absolute left-3 top-3 z-50 -translate-y-24 rounded-md border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-700 shadow focus-visible:translate-y-0 focus-visible:outline-none dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100">Skip to content</a>
@@ -84,9 +110,9 @@
           <span>Demo tab preview</span>
           <span id="demoStatus" class="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2 py-1 font-medium text-slate-600 dark:bg-slate-800 dark:text-slate-300">Discreet mode off</span>
         </div>
-        <div class="relative overflow-hidden rounded-lg border border-slate-200 dark:border-slate-800">
-          <img src="assets/demo-light.svg" alt="Browser tab before DiscreetTab masking with visible title and icon" width="640" height="360" loading="lazy" />
-          <img src="assets/demo-dark.svg" alt="Browser tab after DiscreetTab masking showing neutral placeholder title" width="640" height="360" loading="lazy" id="demoOverlay" class="absolute inset-0 w-full opacity-0 transition-opacity duration-700 ease-in-out" />
+        <div class="relative overflow-hidden rounded-lg border border-slate-200 dark:border-slate-800" data-demo-zoom>
+          <img src="assets/demo-light.svg" alt="Browser tab before DiscreetTab masking with visible title and icon" width="640" height="360" loading="lazy" data-zoom-default="true" />
+          <img src="assets/demo-dark.svg" alt="Browser tab after DiscreetTab masking showing neutral placeholder title" width="640" height="360" loading="lazy" id="demoOverlay" class="absolute inset-0 w-full opacity-0 transition-opacity duration-700 ease-in-out" data-zoom-overlay="true" />
         </div>
         <p class="text-sm text-slate-500 dark:text-slate-400">Tap the animation button to watch the tab title fade into a neutral label.</p>
       </div>
@@ -172,6 +198,6 @@
       </div>
     </div>
   </footer>
-  <script>const root=document.documentElement,prefersReducedMotion=window.matchMedia?.('(prefers-reduced-motion: reduce)').matches??false;function getStored(e){try{return localStorage.getItem(e)}catch{return null}}function setStored(e,t){try{localStorage.setItem(e,t)}catch{}}function updateThemeButtonLabel(){const e=document.getElementById('themeToggle');if(!e)return;const t=root.dataset.theme==='dark'?'dark':'light';e.textContent=t==='dark'?'Use light mode':'Use dark mode';e.setAttribute('aria-pressed',t==='dark'?'true':'false')}function toggleTheme(){const e=root.dataset.theme==='dark'?'dark':'light',t=e==='dark'?'light':'dark';root.dataset.theme=t;root.classList.toggle('dark',t==='dark');setStored('dt-theme',t);updateThemeButtonLabel()}const demoOverlay=document.getElementById('demoOverlay');const demoStatus=document.getElementById('demoStatus');const demoToggle=document.getElementById('demoToggle');let demoActive=false;let demoTimeout=null;function setDemoState(e){demoActive=e;if(demoOverlay)demoOverlay.style.opacity=e?'1':'0';if(demoStatus){demoStatus.textContent=e?'Discreet mode on':'Discreet mode off';demoStatus.classList.toggle('bg-blue-100',e);demoStatus.classList.toggle('text-blue-700',e);demoStatus.classList.toggle('dark:bg-blue-500/20',e);demoStatus.classList.toggle('dark:text-blue-200',e);demoStatus.classList.toggle('bg-slate-100',!e);demoStatus.classList.toggle('text-slate-600',!e);demoStatus.classList.toggle('dark:bg-slate-800',!e);demoStatus.classList.toggle('dark:text-slate-300',!e)}if(demoToggle){demoToggle.textContent=e?'Reset demo':'Play mask animation'}}function animateDemo(){if(demoTimeout){clearTimeout(demoTimeout);demoTimeout=null}const e=!demoActive;setDemoState(e);if(e&&!prefersReducedMotion){demoTimeout=setTimeout(()=>setDemoState(false),2600)}}function initDemo(){if(demoToggle)demoToggle.addEventListener('click',animateDemo)}function initTheme(){const e=document.getElementById('themeToggle');if(e){e.addEventListener('click',toggleTheme);updateThemeButtonLabel()}}function initYear(){const e=document.getElementById('year');if(e)e.textContent=new Date().getFullYear()}function restoreTheme(){const e=getStored('dt-theme');if(e==='dark'||e==='light'){root.dataset.theme=e;root.classList.toggle('dark',e==='dark')}}document.addEventListener('DOMContentLoaded',()=>{restoreTheme();initTheme();initDemo();initYear();setDemoState(false)});</script>
+  <script>const root=document.documentElement,prefersReducedMotion=window.matchMedia?.('(prefers-reduced-motion: reduce)').matches??false;function getStored(e){try{return localStorage.getItem(e)}catch{return null}}function setStored(e,t){try{localStorage.setItem(e,t)}catch{}}function updateThemeButtonLabel(){const e=document.getElementById('themeToggle');if(!e)return;const t=root.dataset.theme==='dark'?'dark':'light';e.textContent=t==='dark'?'Use light mode':'Use dark mode';e.setAttribute('aria-pressed',t==='dark'?'true':'false')}function toggleTheme(){const e=root.dataset.theme==='dark'?'dark':'light',t=e==='dark'?'light':'dark';root.dataset.theme=t;root.classList.toggle('dark',t==='dark');setStored('dt-theme',t);updateThemeButtonLabel()}const demoOverlay=document.getElementById('demoOverlay');const demoStatus=document.getElementById('demoStatus');const demoToggle=document.getElementById('demoToggle');let demoActive=false;let demoTimeout=null;let demoZoomRefresher=null;function setDemoState(e){demoActive=e;if(demoOverlay)demoOverlay.style.opacity=e?'1':'0';if(demoStatus){demoStatus.textContent=e?'Discreet mode on':'Discreet mode off';demoStatus.classList.toggle('bg-blue-100',e);demoStatus.classList.toggle('text-blue-700',e);demoStatus.classList.toggle('dark:bg-blue-500/20',e);demoStatus.classList.toggle('dark:text-blue-200',e);demoStatus.classList.toggle('bg-slate-100',!e);demoStatus.classList.toggle('text-slate-600',!e);demoStatus.classList.toggle('dark:bg-slate-800',!e);demoStatus.classList.toggle('dark:text-slate-300',!e)}if(demoToggle){demoToggle.textContent=e?'Reset demo':'Play mask animation'}if(typeof demoZoomRefresher==='function')demoZoomRefresher()}function animateDemo(){if(demoTimeout){clearTimeout(demoTimeout);demoTimeout=null}const e=!demoActive;setDemoState(e);if(e&&!prefersReducedMotion){demoTimeout=setTimeout(()=>setDemoState(false),2600)}}function initDemo(){if(demoToggle)demoToggle.addEventListener('click',animateDemo)}function initDemoZoom(){const e=document.querySelector('[data-demo-zoom]');if(!e)return;const t=e.querySelector('[data-zoom-default]');const o=e.querySelector('[data-zoom-overlay]');if(!t)return;const n=document.createElement('div');n.className='demo-zoom-bubble';n.dataset.visible='false';e.appendChild(n);const i=160;const a=2;let r='';let d=null;function s(l){const c=(demoActive&&o)?o:t;if(!c)return;const u=c.getBoundingClientRect();const m=l.clientX-u.left;const f=l.clientY-u.top;const g=Math.max(0,Math.min(u.width,m));const p=Math.max(0,Math.min(u.height,f));n.style.left=`${g}px`;n.style.top=`${p}px`;const h=c.src;if(h!==r){n.style.backgroundImage=`url(${h})`;r=h}n.style.backgroundSize=`${u.width*a}px ${u.height*a}px`;const v=-g*a+i/2;const b=-p*a+i/2;n.style.backgroundPosition=`${v}px ${b}px`}const y=l=>{d={clientX:l.clientX,clientY:l.clientY};n.dataset.visible='true';s(d)};const w=l=>{if(!d)return;s(d)};const E=()=>{n.dataset.visible='false'};e.addEventListener('mouseenter',y);e.addEventListener('mousemove',y);e.addEventListener('mouseleave',E);demoZoomRefresher=w}function initTheme(){const e=document.getElementById('themeToggle');if(e){e.addEventListener('click',toggleTheme);updateThemeButtonLabel()}}function initYear(){const e=document.getElementById('year');if(e)e.textContent=new Date().getFullYear()}function restoreTheme(){const e=getStored('dt-theme');if(e==='dark'||e==='light'){root.dataset.theme=e;root.classList.toggle('dark',e==='dark')}}document.addEventListener('DOMContentLoaded',()=>{restoreTheme();initTheme();initDemo();initDemoZoom();initYear();setDemoState(false)});</script>
 </body>
 </html>
